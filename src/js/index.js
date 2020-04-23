@@ -228,13 +228,37 @@
 // console.log(str1);
 // console.log(str2);
 
-const bFunc = (strings, ...values) => {
-  return strings.reduce((accu, str, i) => {
-    let val = values[i] ? `${values[i]}` : "";
-    return `${accu}${str}${val}`
-  }, '');
+// const bFunc = (strings, ...values) => { //strings = 文字列が配列、...values=変数配列 
+//   console.log(strings);
+//   console.log(values);
+//   return strings.reduce((accu, str, i) => {
+//     let val = values[i] ? `${values[i]}` : "";
+//     return `${accu}${str}${val}`
+//   }, '');
+// }
+// const str1 = "bob";
+// const str2 = "david";
+// const result = bFunc`${str1} and ${str2}12345678`;　//変数以外の文字列が配列で引数stringsに渡される 変数は第2以降
+// console.log(result);
+
+
+//---------------loop
+const data = [1, 4, 2, 5, 3];
+const fruits = {banana: 'ばなな',apple: 'アップル', orange: 'オレンジ'};
+console.log(fruits);
+
+Object.prototype.additionalFn = function(){console.log('add')};
+
+Object.prototype.additionalFn();
+
+//object loop
+let keyFruits = Object.keys(fruits); //keyを配列化
+// console.log(keyFruits);
+// for (let i = 0; i < keyFruits.length; i++) {
+//   console.log(i, fruits[keyFruits[i]]);
+// }
+
+//object for in
+for (let i in fruits) {
+  console.log(i, fruits[i]);
 }
-const str1 = "bob";
-const str2 = "david";
-const result = bFunc`${str1} and ${str2}12345678`;
-console.log(result);
