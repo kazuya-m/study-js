@@ -242,23 +242,97 @@
 // console.log(result);
 
 
-//---------------loop
+//-------------------------------------------------loop
+// const data = [1, 4, 2, 5, 3];
+// const fruits = {banana: 'ばなな',apple: 'アップル', orange: 'オレンジ'};
+// console.log(fruits);
+
+// Object.prototype.additionalFn = function(){console.log('add')};
+
+// Object.prototype.additionalFn();
+
+// //object loop
+// let keyFruits = Object.keys(fruits); //keyを配列化
+// // console.log(keyFruits);
+// // for (let i = 0; i < keyFruits.length; i++) {
+// //   console.log(i, fruits[keyFruits[i]]);
+// // }
+
+// //object for in キー情報,添字をiに格納する
+// for (let i in fruits) {
+//   if(fruits.hasOwnProperty(i)) { //プロタイプまで参照するため排除する
+//     console.log(i, fruits[i]);
+//   }
+    
+// }
+
+// // for of バリューをiに格納する
+// for (let i of data) {
+//   console.log(i); //dataの値
+// }
+
+// for (let i of keyFruits) { //fruitsのプロパティ配列
+//   console.log(i,fruits[i]); //iのプロパティ参照でfruitsの値
+// }
+
+// const valueFruits = Object.values(fruits); //objのバリューとる
+// console.log(`values:${valueFruits}`);
+// for (let i of valueFruits) { //fruitsのプロパティ配列
+//   console.log(i); //iのプロパティ参照でfruitsの値
+// }
+
+// const entries = Object.entries(fruits); //ES8~ key: valueを1組ずつ配列で持つ
+// console.log(entries);
+
+// for ( let [k, v] of entries) { //k key v value
+//   console.log(k, v);
+// }
+
+//-------------------------高階関数 関数を引数や戻り値に持つ。基本こっち使う方が可読性が高い
 const data = [1, 4, 2, 5, 3];
 const fruits = {banana: 'ばなな',apple: 'アップル', orange: 'オレンジ'};
 console.log(fruits);
 
-Object.prototype.additionalFn = function(){console.log('add')};
+data.forEach((val, ind, arr) => {
+  console.log(val, ind, arr);
+});
 
-Object.prototype.additionalFn();
+const newData = data.map((val, ind, arr) => { //mapは戻り値が格納
+  const str = 'new';
+  console.log(val, ind, arr);
+  return `${str}:${val}${ind}${arr}`;
+});
+console.log(data);
+console.log(newData);
 
-//object loop
-let keyFruits = Object.keys(fruits); //keyを配列化
-// console.log(keyFruits);
-// for (let i = 0; i < keyFruits.length; i++) {
-//   console.log(i, fruits[keyFruits[i]]);
-// }
+//objectは一旦keyやvalueを配列化してから
+const newObj = Object.keys(fruits).map((val, ind, arr) => { //mapは戻り値が格納
+  const str = 'newObj';
+  console.log(val, ind, arr);
+  return `${str}:val:${val}ind:${ind}arr:${arr}`;
+});
+console.log(fruits);
+console.log(newObj);
 
-//object for in
-for (let i in fruits) {
-  console.log(i, fruits[i]);
-}
+//filter
+const newFil = data.filter((val, ind, arr) => { //mapは戻り値が格納
+  return val <= 3;
+});
+console.log(newFil);
+
+//redude accuにループ毎に蓄積
+const reduce = data.reduce((accu, curr) => {
+  console.log(accu);
+  return accu + curr;
+});
+console.log(reduce);
+
+const sort = data.sort((a, b) => {
+  return a - b;
+});
+console.log(sort);
+console.log(data); //元の配列もソートされる
+
+
+
+
