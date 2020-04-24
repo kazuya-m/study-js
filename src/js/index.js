@@ -288,51 +288,77 @@
 //   console.log(k, v);
 // }
 
-//-------------------------高階関数 関数を引数や戻り値に持つ。基本こっち使う方が可読性が高い
-const data = [1, 4, 2, 5, 3];
-const fruits = {banana: 'ばなな',apple: 'アップル', orange: 'オレンジ'};
-console.log(fruits);
+//-------------------------loop 高階関数 関数を引数や戻り値に持つ。基本こっち使う方が可読性が高い
+ const data = [1, 4, 2, 5, 3];
+// const fruits = {banana: 'ばなな',apple: 'アップル', orange: 'オレンジ'};
+// console.log(fruits);
 
-data.forEach((val, ind, arr) => {
-  console.log(val, ind, arr);
-});
+// data.forEach((val, ind, arr) => {
+//   console.log(val, ind, arr);
+// });
 
-const newData = data.map((val, ind, arr) => { //mapは戻り値が格納
-  const str = 'new';
-  console.log(val, ind, arr);
-  return `${str}:${val}${ind}${arr}`;
-});
-console.log(data);
-console.log(newData);
+// const newData = data.map((val, ind, arr) => { //mapは戻り値が格納
+//   const str = 'new';
+//   console.log(val, ind, arr);
+//   return `${str}:${val}${ind}${arr}`;
+// });
+// console.log(data);
+// console.log(newData);
 
-//objectは一旦keyやvalueを配列化してから
-const newObj = Object.keys(fruits).map((val, ind, arr) => { //mapは戻り値が格納
-  const str = 'newObj';
-  console.log(val, ind, arr);
-  return `${str}:val:${val}ind:${ind}arr:${arr}`;
-});
-console.log(fruits);
-console.log(newObj);
+// //objectは一旦keyやvalueを配列化してから
+// const newObj = Object.keys(fruits).map((val, ind, arr) => { //mapは戻り値が格納
+//   const str = 'newObj';
+//   console.log(val, ind, arr);
+//   return `${str}:val:${val}ind:${ind}arr:${arr}`;
+// });
+// console.log(fruits);
+// console.log(newObj);
 
-//filter
-const newFil = data.filter((val, ind, arr) => { //mapは戻り値が格納
-  return val <= 3;
-});
-console.log(newFil);
+// //filter
+// const newFil = data.filter((val, ind, arr) => { //mapは戻り値が格納
+//   return val <= 3;
+// });
+// console.log(newFil);
 
-//redude accuにループ毎に蓄積
-const reduce = data.reduce((accu, curr) => {
-  console.log(accu);
-  return accu + curr;
-});
-console.log(reduce);
+// //redude accuにループ毎に蓄積
+// const reduce = data.reduce((accu, curr) => {
+//   console.log(accu);
+//   return accu + curr;
+// });
+// console.log(reduce);
 
-const sort = data.sort((a, b) => {
-  return a - b;
-});
-console.log(sort);
-console.log(data); //元の配列もソートされる
+// const sort = data.sort((a, b) => {
+//   return a - b;
+// });
+// console.log(sort);
+// console.log(data); //元の配列もソートされる
 
+//for loopして作った配列をさらにloopしてソートするより可読性が高い
+// const twoFunc = data
+// .map((v) => v + 1)
+// .sort((a, b) => {
+//   return a - b;
+// });
+// console.log(data);
+// console.log(twoFunc);
 
+/**
+ * 非同期処理 - callback func
+ */
+ const wait = (callback, num) => {
+   console.log(num);
+   setTimeout(() => {
+     callback(); //引数callbackに渡された関数を実行
+   }, 2000);
+ }
+//入れ子になるとcallback地獄!!
+// wait(() => {
+//   console.log('callback!')
+//   wait(() => {
+//     console.log('callback number2!');
+//   }, 1);
+// }, 0);
 
-
+/**
+ * 非同期処理 - promise func
+ */
