@@ -346,19 +346,39 @@
  * 非同期処理 - callback func
  */
  const wait = (callback, num) => {
-   console.log(num);
    setTimeout(() => {
-     callback(); //引数callbackに渡された関数を実行
-   }, 2000);
- }
+     callback(num); //引数callbackに渡された関数を実行
+    }, num);
+  }
 //入れ子になるとcallback地獄!!
-// wait(() => {
-//   console.log('callback!')
-//   wait(() => {
-//     console.log('callback number2!');
-//   }, 1);
-// }, 0);
+wait(num => {
+  num++;
+  console.log(num);
+  console.log('callback!')
+  wait(num => {
+    num++;
+    console.log(num);
+    console.log('callback number2!');
+    wait(num => {
+      num++;
+      console.log(num);
+      console.log('callback number3!');
+    }, num);
+  }, num);
+}, 1000);
 
 /**
  * 非同期処理 - promise func
  */
+// const promise = (callback, num) => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       resolve(num); //引数callbackに渡された関数を実行
+//     }, num);  
+//   });
+// }
+
+// wait(0).then(num => {
+//   num + 1000;
+//   return wait(num);
+// })
