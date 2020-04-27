@@ -409,7 +409,7 @@
 /**
  * 非同期処理 - awit async
  */
-function asyncSample(num){
+const asyncSample = num => {
   return new Promise ((resolve, reject) => {
     setTimeout( () => {
       console.log(`processing num:${num}`);
@@ -423,7 +423,7 @@ function asyncSample(num){
   }); 
 }
 　
-async function asyncFunc() {
+const asyncFunc =  async () => {
   let num = 1000;
  try {
     num = await asyncSample(num);  //await = 処理完了まで待つ
@@ -436,7 +436,7 @@ async function asyncFunc() {
   }
   return `done! no:${num}`; //try完了時 Promiseでラッピングされる
 }
-asyncFunc().then( msg => {　//msgにPromiseインスタンスが返却
+asyncFunc().then( msg => {　//msgにPromiseインスタンスが返却されるのでthen使用可能
   console.log(msg); 
 });
 console.log('first'); //先に動く
