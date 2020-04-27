@@ -345,40 +345,99 @@
 /**
  * 非同期処理 - callback func
  */
- const wait = (callback, num) => {
-   setTimeout(() => {
-     callback(num); //引数callbackに渡された関数を実行
-    }, num);
-  }
-//入れ子になるとcallback地獄!!
-wait(num => {
-  num++;
-  console.log(num);
-  console.log('callback!')
-  wait(num => {
-    num++;
-    console.log(num);
-    console.log('callback number2!');
-    wait(num => {
-      num++;
-      console.log(num);
-      console.log('callback number3!');
-    }, num);
-  }, num);
-}, 1000);
+// const wait = (callback, num) => {
+//    setTimeout(() => {
+//      callback(num); //引数callbackに渡された関数を実行
+//     }, num);
+//   }
+// //入れ子になるとcallback地獄!!
+// wait(num => {
+//   num++;
+//   console.log(num);
+//   console.log('callback!')
+//   wait(num => {
+//     num++;
+//     console.log(num);
+//     console.log('callback number2!');
+//     wait(num => {
+//       num++;
+//       console.log(num);
+//       console.log('callback number3!');
+//     }, num);
+//   }, num);
+// }, 1000); //引数：callbackに渡す関数内でさらに呼んでる、1000=引数：num
 
 /**
  * 非同期処理 - promise func
  */
-// const promise = (callback, num) => {
-//   return new Promise((resolve, reject) => {
+// const promise = num => {
+//   return new Promise((resolve, reject) => { //非同期処理 resolve:then reject:catchに飛ぶ
 //     setTimeout(() => {
-//       resolve(num); //引数callbackに渡された関数を実行
-//     }, num);  
+//       if (num == 15) {
+//         reject(num);
+//       } else {
+//         console.log(num);
+//         resolve(num); //引数callbackに渡された関数を実行
+//       }
+//     }, 100);  
 //   });
 // }
 
-// wait(0).then(num => {
-//   num + 1000;
-//   return wait(num);
-// })
+// promise(10).then(num => {
+//   num++;
+//   return promise(num);
+// }).then(num => {
+//   num++;
+//   return promise(num);
+// }).then(num => {
+//   num++
+//   return promise(num);
+// }).catch(num => {
+//   console.log(num, 'err');
+// });
+
+// //allが全て完了後then処理
+// Promise.all([promise(2000), promise(2001), promise(2002),]).then (nums => {
+//   console.log(`after all:${nums}`);
+// });
+
+// //raceのうちいずれか完了でthen処理
+// Promise.race([promise(3000), promise(3001), promise(3002),]).then (nums => {
+//   console.log(`after race:${nums}`);
+// });
+
+/**
+ * 非同期処理 - awit async
+ */
+function asyncSample(num){
+  return new Promise ((resolve, reject) => {
+    setTimeout( () => {
+      console.log(`processing num:${num}`);
+      if (num === 1005) {
+        reject(num);
+      } else {
+        resolve(num);
+        console.log(`after resolve num:${num}`);
+      }
+    }, num);
+  }); 
+}
+　
+async function asyncFunc() {
+  let num = 1000;
+ try {
+    num = await asyncSample(num);  //await = 処理完了まで待つ
+    num++;
+    num = await asyncSample(num); //resolveでawait後の次の処理に進む
+    num++;
+    num = await asyncSample(num);
+  } catch (num) { //reject
+    return `error! no:${num}`;
+  }
+  return `done! no:${num}`; //try完了時 Promiseでラッピングされる
+}
+asyncFunc().then( msg => {　//msgにPromiseインスタンスが返却
+  console.log(msg); 
+});
+console.log('first'); //先に動く
+
