@@ -409,35 +409,86 @@
 /**
  * 非同期処理 - awit async
  */
-const asyncSample = num => {
-  return new Promise ((resolve, reject) => {
-    setTimeout( () => {
-      console.log(`processing num:${num}`);
-      if (num === 1005) {
-        reject(num);
-      } else {
-        resolve(num);
-        console.log(`after resolve num:${num}`);
-      }
-    }, num);
-  }); 
+// const asyncSample = num => {
+//   return new Promise ((resolve, reject) => {
+//     setTimeout( () => {
+//       console.log(`processing num:${num}`);
+//       if (num === 1005) {
+//         reject(num);
+//       } else {
+//         resolve(num);
+//         console.log(`after resolve num:${num}`);
+//       }
+//     }, num);
+//   }); 
+// }
+// 　
+// const asyncFunc =  async () => {
+//   let num = 1000;
+//  try {
+//     num = await asyncSample(num);  //await = 処理完了まで待つ
+//     num++;
+//     num = await asyncSample(num); //resolveでawait後の次の処理に進む
+//     num++;
+//     num = await asyncSample(num);
+//   } catch (num) { //reject
+//     return `error! no:${num}`;
+//   }
+//   return `done! no:${num}`; //try完了時 Promiseでラッピングされる
+// }
+// asyncFunc().then( msg => {　//msgにPromiseインスタンスが返却されるのでthen使用可能
+//   console.log(msg); 
+// });
+// console.log('first'); //先に動く
+
+
+/**
+ * オブジェクト
+ */
+
+/**
+ * 複数オブジェクト作成 - ファクトリー関数
+ */
+// const factoryPerson = (first, last) => {
+//   let person ={first, last};
+//   return person
+// }
+// let obj2 = factoryPerson("david", "beckham");
+// let obj3 = factoryPerson("ryan", "giggs");
+// let obj4 = factoryPerson("paul", "scholes");
+// console.log(obj2, obj3, obj4);
+
+/**
+ * 複数オブジェクト作成 - コンストラクタ関数
+ */
+// function Person (first, last) {
+//   this.first = first;
+//   this.last = last;
+//   this.intoroduce = () => {
+//     console.log(`Im ${first}.${last}`);
+//   }
+// }
+// let person1 = new Person("david", "beckham");
+// let person2 = new Person("gary", "neville");
+// person1.intoroduce = () => {
+//   console.log('dont wanna do it!');
+// }
+// person1.intoroduce(); //don wanna
+// person2.intoroduce(); //introduce my name
+// //外から書き換えられると挙動が違う。バグの温床
+
+//プロトタイプで定義する
+function Person (first, last) {
+  this.first = first;
+  this.last = last;
 }
-　
-const asyncFunc =  async () => {
-  let num = 1000;
- try {
-    num = await asyncSample(num);  //await = 処理完了まで待つ
-    num++;
-    num = await asyncSample(num); //resolveでawait後の次の処理に進む
-    num++;
-    num = await asyncSample(num);
-  } catch (num) { //reject
-    return `error! no:${num}`;
-  }
-  return `done! no:${num}`; //try完了時 Promiseでラッピングされる
+
+Person.prototype.intoroduce = function() {
+  console.log(this.first + this.last); //prototypeはthisが必要(元のコンストラクタ関数をポイント)
 }
-asyncFunc().then( msg => {　//msgにPromiseインスタンスが返却されるのでthen使用可能
-  console.log(msg); 
-});
-console.log('first'); //先に動く
+
+let david = new Person("david", "beckham");
+let gary = new Person("gary", "neville");
+david.intoroduce(); //don wanna
+gary.intoroduce(); //introduce my name
 
