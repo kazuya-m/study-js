@@ -288,8 +288,8 @@
 //   console.log(k, v);
 // }
 
-//-------------------------loop 高階関数 関数を引数や戻り値に持つ。基本こっち使う方が可読性が高い
- const data = [1, 4, 2, 5, 3];
+// //-------------------------loop 高階関数 関数を引数や戻り値に持つ。基本こっち使う方が可読性が高い
+//  const data = [1, 4, 2, 5, 3];
 // const fruits = {banana: 'ばなな',apple: 'アップル', orange: 'オレンジ'};
 // console.log(fruits);
 
@@ -478,17 +478,90 @@
 // //外から書き換えられると挙動が違う。バグの温床
 
 //プロトタイプで定義する
-function Person (first, last) {
-  this.first = first;
-  this.last = last;
+// function Person (first, last) {
+//   this.first = first;
+//   this.last = last;
+// }
+
+// Person.prototype.intoroduce = function() { //protptypeプロパティで定義する
+//   console.log(this.first + this.last); 
+//   //prototypeはthisが必要(元のコンストラクタ関数をポイント)
+//   //インスタンス生成後はインスタンス
+// }
+
+// let david = new Person("david", "beckham");
+// let gary = new Person("gary", "neville");
+// david.intoroduce(); //first + last
+// gary.intoroduce(); //first + last
+
+/**
+ * 継承
+ */
+// function Urawa (first, last) {
+//   this.first = first;
+//   this.last = last;
+// }
+
+// function Jpn (first, last) {
+//   Urawa.call(this, first, last) 
+//   //thisをbindする。継承元とthisを同じ意味で使うため。しないとJpn自身のthisになってしまう
+// }
+
+// function NonJpn (first, last) {
+//   Urawa.call(this, first, last)
+// }
+
+// Urawa.prototype.foreignRoster = () => {
+//   console.log('外国人枠');
+// }
+
+// //prototypeの継承
+// Object.setPrototypeOf(NonJpn.prototype, Urawa.prototype);
+
+// let maru = new NonJpn('quen', 'maru');
+// maru.foreignRoster();
+// let kenyu = new Jpn('kenyu', 'sgmt');
+
+/**
+ * プロトタイプをクラスへ (ES5~)
+ */
+class UrawaPlayer {
+  constructor (first, last) {
+    this.first = first;
+    this.last = last;
+  }
+  introduce() {
+    console.log(`player name: ${first} ${last}`);
+  }
+};
+
+class Jpn extends UrawaPlayer {
+  constructor (first, last, nationality) {
+    super(first, last);
+    this.nationality = nationality;
+    this._age = 18; // _変数はprivate変数を明示する慣例(getter setter通すか、関数ならクラス内から呼び出す)
+  }
+
+  introduce() {
+    console.log(`${this.nationality} player name: ${this.first} ${this.last}`)
+  };
+
+  static getGoal() { //コンストラクタから呼び出せる。(インスタンスは生成されていない)
+    console.log('get goal!');
+  }
+
+  //getter setter
+  set age (val) {
+    this._age = val;
+  }
+  get age () {
+    return this._age;
+  }
 }
 
-Person.prototype.intoroduce = function() {
-  console.log(this.first + this.last); //prototypeはthisが必要(元のコンストラクタ関数をポイント)
-}
+let kenyu = new Jpn('kenyu', 'sugimoto', 'JPN');
+kenyu.introduce();
 
-let david = new Person("david", "beckham");
-let gary = new Person("gary", "neville");
-david.intoroduce(); //don wanna
-gary.intoroduce(); //introduce my name
-
+Jpn.getGoal();
+kenyu.age = 28;
+console.log(kenyu.age);
