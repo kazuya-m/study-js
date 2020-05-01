@@ -156,21 +156,23 @@
 // console.log(clonedObj);
 
 
-// //a1段階目(bに値コピー)は残る、2段回目は消える(参照先コピー)
+//a1段階目(bに値コピー)は残る、2段回目は消える(参照先コピー)
 // let a = [[1,2], [3,4], [5,6]];
+// console.log(a);
 // let b = [...a];
-// console.log(b.shift().shift());
+//  console.log(b);
+// console.log(b.shift().shift()); //削除
 // console.log(a);
 
 //rest parameters func引数がスプレット
-// let sum = (...args) => {
+// let sum2 = (...args) => {
 //   console.log(args);
 //   return args.reduce((previous, current) => {
 //     return previous + current;
 //   });
 // }
 
-// console.log(sum(1,2,3));
+// console.log(sum2(1,2,3));
 
 
 //------------------分割代入
@@ -243,13 +245,11 @@
 
 
 //-------------------------------------------------loop
-// const data = [1, 4, 2, 5, 3];
-// const fruits = {banana: 'ばなな',apple: 'アップル', orange: 'オレンジ'};
-// console.log(fruits);
+const data = [1, 4, 2, 5, 3];
+const fruits = {banana: 'ばなな',apple: 'アップル', orange: 'オレンジ'};
 
-// Object.prototype.additionalFn = function(){console.log('add')};
-
-// Object.prototype.additionalFn();
+Object.prototype.additionalFn = function(){};
+Object.prototype.additionalFn();
 
 // //object loop
 // let keyFruits = Object.keys(fruits); //keyを配列化
@@ -262,8 +262,7 @@
 // for (let i in fruits) {
 //   if(fruits.hasOwnProperty(i)) { //プロタイプまで参照するため排除する
 //     console.log(i, fruits[i]);
-//   }
-    
+//   }    
 // }
 
 // // for of バリューをiに格納する
@@ -293,7 +292,7 @@
 // const fruits = {banana: 'ばなな',apple: 'アップル', orange: 'オレンジ'};
 // console.log(fruits);
 
-// data.forEach((val, ind, arr) => {
+// data.forEach((val, ind, arr) => { //val=値, ind=添字, arr=配列そのもの
 //   console.log(val, ind, arr);
 // });
 
@@ -305,42 +304,41 @@
 // console.log(data);
 // console.log(newData);
 
-// //objectは一旦keyやvalueを配列化してから
+//objectは一旦keyやvalueを配列化してから
 // const newObj = Object.keys(fruits).map((val, ind, arr) => { //mapは戻り値が格納
 //   const str = 'newObj';
 //   console.log(val, ind, arr);
 //   return `${str}:val:${val}ind:${ind}arr:${arr}`;
 // });
-// console.log(fruits);
 // console.log(newObj);
 
-// //filter
+// filter
 // const newFil = data.filter((val, ind, arr) => { //mapは戻り値が格納
 //   return val <= 3;
 // });
 // console.log(newFil);
 
-// //redude accuにループ毎に蓄積
+// redude accuにループ毎に蓄積
 // const reduce = data.reduce((accu, curr) => {
 //   console.log(accu);
 //   return accu + curr;
 // });
 // console.log(reduce);
 
-// const sort = data.sort((a, b) => {
-//   return a - b;
-// });
-// console.log(sort);
-// console.log(data); //元の配列もソートされる
+const sort = data.sort((a, b) => {
+  return a - b;
+});
+console.log(sort);
+console.log(data); //元の配列もソートされる
 
 //for loopして作った配列をさらにloopしてソートするより可読性が高い
-// const twoFunc = data
-// .map((v) => v + 1)
-// .sort((a, b) => {
-//   return a - b;
-// });
-// console.log(data);
-// console.log(twoFunc);
+const twoFunc = data
+.map((v) => v + 1)
+.sort((a, b) => {
+  return a - b;
+});
+console.log(data);
+console.log(twoFunc);
 
 /**
  * 非同期処理 - callback func
@@ -525,43 +523,43 @@
 /**
  * プロトタイプをクラスへ (ES5~)
  */
-class UrawaPlayer {
-  constructor (first, last) {
-    this.first = first;
-    this.last = last;
-  }
-  introduce() {
-    console.log(`player name: ${first} ${last}`);
-  }
-};
+// class UrawaPlayer {
+//   constructor (first, last) {
+//     this.first = first;
+//     this.last = last;
+//   }
+//   introduce() {
+//     console.log(`player name: ${first} ${last}`);
+//   }
+// };
 
-class Jpn extends UrawaPlayer {
-  constructor (first, last, nationality) {
-    super(first, last);
-    this.nationality = nationality;
-    this._age = 18; // _変数はprivate変数を明示する慣例(getter setter通すか、関数ならクラス内から呼び出す)
-  }
+// class Jpn extends UrawaPlayer {
+//   constructor (first, last, nationality) {
+//     super(first, last);
+//     this.nationality = nationality;
+//     this._age = 18; // _変数はprivate変数を明示する慣例(getter setter通すか、関数ならクラス内から呼び出す)
+//   }
 
-  introduce() {
-    console.log(`${this.nationality} player name: ${this.first} ${this.last}`)
-  };
+//   introduce() {
+//     console.log(`${this.nationality} player name: ${this.first} ${this.last}`)
+//   };
 
-  static getGoal() { //コンストラクタから呼び出せる。(インスタンスは生成されていない)
-    console.log('get goal!');
-  }
+//   static getGoal() { //コンストラクタから呼び出せる。(インスタンスは生成されていない)
+//     console.log('get goal!');
+//   }
 
-  //getter setter
-  set age (val) {
-    this._age = val;
-  }
-  get age () {
-    return this._age;
-  }
-}
+//   //getter setter
+//   set age (val) {
+//     this._age = val;
+//   }
+//   get age () {
+//     return this._age;
+//   }
+// }
 
-let kenyu = new Jpn('kenyu', 'sugimoto', 'JPN');
-kenyu.introduce();
+// let kenyu = new Jpn('kenyu', 'sugimoto', 'JPN');
+// kenyu.introduce();
 
-Jpn.getGoal();
-kenyu.age = 28;
-console.log(kenyu.age);
+// Jpn.getGoal();
+// kenyu.age = 28;
+// console.log(kenyu.age);
