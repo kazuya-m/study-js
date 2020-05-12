@@ -102,6 +102,74 @@
 // outer().arrowSay();
 
 //----------------------------closure 
+// function callevent(id) {
+//   id++;
+//   var latestInfo = get(id);
+//   console.log(latestInfo());
+//   getLatest();
+// }
+
+// var get = function (id) {
+//   var callInfo = {
+//     latestCallId: id,
+//     latestuui: "aaaaaaa11111zdsfasdf"
+//   }
+//   return function (callid) {
+//     if (callid === callInfo.latestCallId) {
+//       return callInfo;
+//     } else {
+//       callInfo.latestCallId = callid;
+//       callInfo.latestuui = "uui";
+//       return callInfo;
+//     }
+//   }
+// }
+// function getLatest (yes=null) {
+//   console.log(yes);
+//   var haha = get();
+//   console.log(haha());
+// }
+
+// var callInfo = function (info) {
+//   return function () {
+//     console.log(info);
+//     return info;
+//   }
+// }
+
+// function callevent (idx) {
+//   var ani = '090111222';
+//   var uui = '09011112222,1,2,098765432';
+//   var callobj = {
+//     idx: idx,
+//     ani: ani,
+//     uui: uui
+//   }
+//   var test = callInfo(callobj);
+//   console.log(test());
+// }
+
+// function a (a) {
+//   var callA = callthem(a);
+//   console.log('A:' + callA);
+// }
+
+// function b () {
+//   var callB = callInfo();
+//   console.log('B:' + callB);
+// }
+
+// function c () {
+//   var callC = callInfo();
+//   console.log('C:' + callC);
+// }
+
+// function callthem() {
+//   a();
+//   b();
+//   c();
+// }
+
 // let increment = (function () {
 //   let counter = 0;
 
@@ -116,7 +184,7 @@
 // increment();
 // console.log(increment.counter);
 
-//動的関数
+// 動的関数
 // function addStringFactory(tail) {
 //     return function (str) {
 //       return str + tail;
@@ -325,20 +393,20 @@ Object.prototype.additionalFn();
 // });
 // console.log(reduce);
 
-const sort = data.sort((a, b) => {
-  return a - b;
-});
-console.log(sort);
-console.log(data); //元の配列もソートされる
+// const sort = data.sort((a, b) => {
+//   return a - b;
+// });
+// console.log(sort);
+// console.log(data); //元の配列もソートされる
 
-//for loopして作った配列をさらにloopしてソートするより可読性が高い
-const twoFunc = data
-.map((v) => v + 1)
-.sort((a, b) => {
-  return a - b;
-});
-console.log(data);
-console.log(twoFunc);
+// //for loopして作った配列をさらにloopしてソートするより可読性が高い
+// const twoFunc = data
+// .map((v) => v + 1)
+// .sort((a, b) => {
+//   return a - b;
+// });
+// console.log(data);
+// console.log(twoFunc);
 
 /**
  * 非同期処理 - callback func
