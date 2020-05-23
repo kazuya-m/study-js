@@ -130,24 +130,24 @@
 //   console.log(haha());
 // }
 
-// var callInfo = function (info) {
-//   return function () {
-//     console.log(info);
-//     return info;
-//   }
-// }
+var callInfo = function (info) {
+  return function () {
+    console.log(info);
+    return info;
+  }
+}
 
-// function callevent (idx) {
-//   var ani = '090111222';
-//   var uui = '09011112222,1,2,098765432';
-//   var callobj = {
-//     idx: idx,
-//     ani: ani,
-//     uui: uui
-//   }
-//   var test = callInfo(callobj);
-//   console.log(test());
-// }
+function callevent (idx) {
+  var ani = '090111222';
+  var uui = '09011112222,1,2,098765432';
+  var callobj = {
+    idx: idx,
+    ani: ani,
+    uui: uui
+  }
+  var test = callInfo(callobj);
+  console.log(test());
+}
 
 // function a (a) {
 //   var callA = callthem(a);
