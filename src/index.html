@@ -3,8 +3,18 @@
   <head>
   </head>
   <body>
-    <button onClick="callevent(1)">event</button>
-    <button onClick="getLatest()">getLatest</button>
+    <!-- <button onClick="callevent(1)">event</button>
+    <button onClick="getLatest()">getLatest</button> -->
+    <div>
+      <img src="https://playcode.io/static/img/logo.png" 
+      alt="PlayCode logo">
+      <h1 id="msg"></h1>
+      <button onClick="eventCall(1, '090111111111', 'hehehe')">1</button>
+      <button onClick="eventCall(2, '090222222222', 'hahaha')">2</button>
+      <button onClick="eventCall(3, '090333333333', 'hoge')">3</button>
+      
+      <button onclick="getCallInfo()">get Call Info</button>
+    </div>
     <script type="text/javascript" src="js/index.js"></script>
   </body>
 </html>

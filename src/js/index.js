@@ -130,24 +130,24 @@
 //   console.log(haha());
 // }
 
-var callInfo = function (info) {
-  return function () {
-    console.log(info);
-    return info;
-  }
-}
+// var callInfo = function (info) {
+//   return function () {
+//     console.log(info);
+//     return info;
+//   }
+// }
 
-function callevent (idx) {
-  var ani = '090111222';
-  var uui = '09011112222,1,2,098765432';
-  var callobj = {
-    idx: idx,
-    ani: ani,
-    uui: uui
-  }
-  var test = callInfo(callobj);
-  console.log(test());
-}
+// function callevent (idx) {
+//   var ani = '090111222';
+//   var uui = '09011112222,1,2,098765432';
+//   var callobj = {
+//     idx: idx,
+//     ani: ani,
+//     uui: uui
+//   }
+//   var test = callInfo(callobj);
+//   console.log(test());
+// }
 
 // function a (a) {
 //   var callA = callthem(a);
@@ -631,3 +631,60 @@ Object.prototype.additionalFn();
 // Jpn.getGoal();
 // kenyu.age = 28;
 // console.log(kenyu.age);
+
+
+
+
+
+
+
+
+
+//geter setter test
+//即時関数でレキシカルスコープのobjを生成
+var callInfo = (function() {
+  var _callInfoObj = {
+    index: "",
+    ani: "",
+    uui: "",
+  };
+  return {
+    get getCallInfo() {
+      return _callInfoObj;
+    },
+    set all (val) { //全部セット
+      _callInfoObj = val;
+    },
+    set callIndex(val) { //以下個別
+      _callInfoObj.index = val;
+    },
+    set ani(val) {
+      _callInfoObj.ani = val;
+    },
+    set uui(val) {
+      _callInfoObj.uui = val;
+    }
+
+  }
+}());
+
+//eventCallが呼ばれてsetterを使って値を変更
+function eventCall (index, ani, uui) {
+  //毎回必ず全プロパティを変更するならobjを渡してひとつのsetterで一気にセットしてもOK
+  var latestCallInfo = {
+    index: index,
+    ani: ani,
+    uui: uui
+  }
+  //全部セット
+  callInfo.all = latestCallInfo;
+  
+  //個別でセット
+  callInfo.callIndex = index;
+  callInfo.ani = ani;
+  callInfo.uui = uui;
+}
+
+function getCallInfo() {
+  console.log(callInfo.getCallInfo); //最新のレキシカルスコープのオブジェクト
+}
