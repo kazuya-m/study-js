@@ -1,0 +1,23 @@
+.parent {
+  width: 300px;
+}
+
+.red {
+  background-color: red;
+  width: 10%;
+  float: left;
+}
+
+.yellow {
+  background-color: yellow;
+  float: right;
+  width: 80%;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.green {
+  background-color: green;
+}
