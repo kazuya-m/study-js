@@ -688,3 +688,20 @@ function eventCall (index, ani, uui) {
 function getCallInfo() {
   console.log(callInfo.getCallInfo); //最新のレキシカルスコープのオブジェクト
 }
+
+
+(function () {
+  var ret = login();
+  console.log(ret);
+})();
+
+function login() {
+  var modori = setTimeout(loginwait(), 10000);
+  console.log(modori);
+  return modori;
+}
+
+function loginwait() {
+  console.log(0);
+  return "0";
+}
